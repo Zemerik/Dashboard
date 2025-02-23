@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout
+  title={"404"}
+  description={"This page could not be found."}
+	pagefindIgnore
+>
+  <div class="notfound-container" slot="404">
+    <h1 class="text-glow">404</h1>
+    <p>This page could not be found.</p>
+    <a class="block-link" href="/">← Back to the homepage</a>
+  </div>
+</Layout>
+<style>
+  .notfound-container {
+    display: flex;
+    height: 80vh;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    flex-direction: column;
+  }
+
+  .notfound-container h1 {
+    font-size: 4rem;
+    margin: 0;
+  }
+
+  .notfound-container p {
+    font-size: 1.25em;
+  }
+
+  .block-link {
+    margin-top: 1rem;
+  }
+</style>

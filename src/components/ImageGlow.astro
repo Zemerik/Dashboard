@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets';
+import type { LocalImageProps, RemoteImageProps } from 'astro:assets';
+
+type Props = LocalImageProps | RemoteImageProps;
+
+const { ...props } = Astro.props;
+
+const width = props.width;
+const height = props.height;
+---
+
+<div class="glow-image">
+  <Image {...props} />
+  <Image
+    width={width ? ((typeof width === 'number' ? width : Number.parseInt(width)) / 4) : undefined} 
+    height={height ? ((typeof height === 'number' ? height : Number.parseInt(height)) / 4) : undefined}
+    {...props}
+    class='glow'
+    class:list={[props.class]}
+    quality={75}
+  />
+</div>
+<style>
+  .glow-image {
+    position: relative;
+  }
+
+  .glow-image img {
+    position: relative;
+    z-index: 1;
+  }
+
+  .glow {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    z-index: 0 !important;
+    filter: blur(8px);
+  }
+</style>

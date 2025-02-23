@@ -1,0 +1,75 @@
+---
+import '../styles/reset.css';
+import '../styles/globals.css';
+
+import Background from '../components/Background.astro';
+import Navbar from '../components/Navbar.astro';
+import LayoutGrid from '../components/LayoutGrid.astro';
+import { name, themeColor, twitterHandle } from 'dashboard:globals';
+
+interface Props {
+	title: string;
+	description?: string;
+	image?: ImageMetadata;
+	pagefindIgnore?: boolean;
+	article?: {
+		createdAt: Date;
+		updatedAt?: Date;
+	};
+}
+
+const { title, description, image, pagefindIgnore, article } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+
+		<title>{title}</title>
+		{description && <meta name="description" content={description} />}
+		<meta name="theme-color" content={themeColor}>
+
+		<link rel="canonical" href={Astro.site} />
+
+		<meta name="og:title" content={title} />
+		{description && <meta name="og:description" content={description} />}
+		<meta name="og:image" content={image?.src || '/img/screenshot.png'} />
+		<meta name="og:url" content={Astro.site} />
+		{!article && <meta name="og:type" content="website" />}
+		<meta name="og:locale" content="en" />
+
+		{article && (
+			<meta name="og:type" content="article" />
+			<meta property="article:published_time" content={article.createdAt.toISOString()} />
+			<meta name="author" content={name} />
+		)}
+
+		{article && article.updatedAt && (
+			<meta property="article:modified_time" content={article.updatedAt.toISOString()} />
+		)}
+
+		<meta name="twitter:card" content="summary_large_image" />
+		{twitterHandle && (
+			<meta name="twitter:site" content={twitterHandle} />
+			<meta name="twitter:creator" content={twitterHandle} />
+		)}
+		<meta name="twitter:title" content={title} />
+		{description && <meta name="twitter:description" content={description} />}
+		<meta name="twitter:image" content={image?.src || '/img/screenshot.png'} />
+	</head>
+	<body>
+		<main data-pagefind-ignore={pagefindIgnore}>
+			<Navbar />
+			<LayoutGrid>
+				<slot name="left" slot="left" />
+				<slot name="right" slot="right" />
+			</LayoutGrid>
+			<slot name="404" />
+		</main>
+		<Background />
+	</body>
+</html>

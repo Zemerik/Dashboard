@@ -1,0 +1,82 @@
+---
+import '../styles/article-list.css';
+
+import { getCollection } from "astro:content";
+import Card from "../components/Card.astro";
+import Icon from "../components/Icon.astro";
+import Layout from "../layouts/Layout.astro";
+import { openGraph } from 'dashboard:globals';
+
+const posts = await getCollection('posts', (post) => post.data.draft !== true);
+const tags = posts.flatMap((post) => post.data.tags.map((tag) => tag.id));
+---
+<Layout
+  title={openGraph.blog.title || "Blog"}
+  description={openGraph.blog.description}
+	pagefindIgnore
+>
+  <div class="layout-grid-left" slot="left">
+    <Card class="flex-col-card">
+      <h2 class="no-mt">Filter</h2>
+      <ul class="tags-list">
+        {Array.from(new Set(tags)).map((tag) => (
+          <li>
+            <a
+              class="blog-tag"
+              href="/blog"
+              data-tag={tag}
+            >
+              {tag}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </Card>
+  </div>
+  <div class="layout-grid-right" slot="right">
+		<Card>
+			<div class="header-container">
+				<Icon type="lucide" name="rss" width={24} height={24} class='glow-icon' />
+				<h2>Latest Posts</h2>
+			</div>
+			<div class="content-container">
+				{posts.sort((a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime()).map((post) => (
+					<a href={`/blog/${post.id}`} class="post-container" data-tags={post.data.tags.map((tag) => tag.id).join(",")}>
+						<div class="post-header">
+							<h3>{post.data.title}</h3>
+							<span class="post-date">{post.data.createdAt.toLocaleDateString()}</span>
+						</div>
+						<span>{post.data.description}</span>
+					</a>
+				))}
+			</div>
+		</Card>
+  </div>
+</Layout>
+<script>
+  const tags = document.querySelectorAll<HTMLAnchorElement>('.blog-tag');
+  const url = new URL(window.location.href);
+  const currentTags = url.searchParams.get('tags')?.split(',').filter((tag) => tag.length > 0);
+  const posts = document.querySelectorAll<HTMLAnchorElement>('.post-container');
+
+  tags.forEach((tag) => {
+    let active = false;
+    if (currentTags?.includes(tag.dataset.tag!)) {
+      tag.classList.add('active');
+      active = true;
+    }
+
+    if (active) {
+      tag.href = `/blog?tags=${currentTags?.filter((t) => t !== tag.dataset.tag).join(',')}`;
+    } else {
+      tag.href = `/blog?tags=${currentTags ? [...currentTags, tag.dataset.tag].join(',') : tag.dataset.tag}`;
+    }
+  });
+
+  posts.forEach((post) => {
+    const postTags = post.dataset.tags!.split(',');
+    if (currentTags && currentTags.length > 0 && !currentTags.every((tag) => postTags.includes(tag))) {
+      post.style.display = 'none';
+    }
+  });
+</script>

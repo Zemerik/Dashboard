@@ -1,0 +1,33 @@
+{
+  "name": "dashboard",
+  "type": "module",
+  "version": "1.0.1",
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "start": "node dist/server/entry.mjs",
+    "preview": "astro preview",
+    "astro": "astro",
+    "postbuild": "pagefind --site dist/client"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.0.3",
+    "@astrojs/node": "^9.0.0",
+    "@astrojs/sitemap": "^3.2.1",
+    "@iconify-json/lucide": "^1.2.20",
+    "@iconify-json/simple-icons": "^1.2.18",
+    "@iconify/utils": "^2.2.1",
+    "@shikijs/themes": "^1.26.1",
+    "astro": "^5.1.2",
+    "astro-expressive-code": "^0.38.3",
+    "dashboard": "file:",
+    "sharp": "^0.33.5",
+    "spectre": "file:"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "pagefind": "^1.3.0",
+    "shiki": "^1.26.1"
+  }
+}

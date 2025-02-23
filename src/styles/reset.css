@@ -1,0 +1,95 @@
+@font-face {
+  font-family: 'Geist';
+  src: url('/fonts/Geist.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('/fonts/GeistMono.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* From https://github.com/withstudiocms/ui */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box !important;
+}
+
+html {
+	color-scheme: dark;
+  background-color: #0b0b0b;
+}
+
+html,
+body {
+	margin: 0;
+}
+
+body {
+	-webkit-font-smoothing: antialiased;
+  font-family: 'Geist', sans-serif;
+}
+
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+code {
+	overflow-wrap: anywhere;
+	font-family: 'Geist Mono', monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: pretty;
+}
+
+button {
+	border: none;
+	outline: none;
+	background: none;
+	padding: 0;
+}
+
+p:last-of-type {
+  margin-bottom: 0;
+}
+
+pre, pre *, code {
+  font-family: 'Geist Mono', monospace;
+  line-height: 1;
+}
+
+pre {
+  border: 1px solid rgb(#353535);
+  overflow-y: hidden;
+  padding: .5rem;
+  border-radius: .25rem;
+}
+
+pre.astro-code code {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.875em;
+  gap: .5rem;
+}

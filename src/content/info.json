@@ -1,0 +1,19 @@
+[
+  {
+    "id": 1,
+    "icon": {
+      "type": "lucide",
+      "name": "cake"
+    },
+    "text": "15 years old"
+  },
+  {
+    "id": 2,
+    "icon": {
+      "type": "lucide",
+      "name": "earth"
+    },
+    "type": "lucide",
+    "text": "From Melbourne, Australia"
+  }
+]

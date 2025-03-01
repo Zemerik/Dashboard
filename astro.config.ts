@@ -8,10 +8,12 @@ import dashboard from './package/src';
 import node from '@astrojs/node';
 import { DashboardDark } from './src/ec-theme';
 
+import vercel from '@astrojs/vercel';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://zemeriksdashboard.vercel.app',
-  output: 'static',
+  output: 'server',
   integrations: [
     expressiveCode({
       themes: [DashboardDark],
@@ -36,7 +38,5 @@ export default defineConfig({
       },
     })
   ],
-  adapter: node({
-    mode: 'standalone'
-  })
+  adapter: vercel()
 });

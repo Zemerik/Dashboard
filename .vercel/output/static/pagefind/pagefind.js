@@ -1,0 +1,1 @@
+export const search = () => { return { results: [] } }

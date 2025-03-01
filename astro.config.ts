@@ -9,12 +9,14 @@ import node from '@astrojs/node';
 import { DashboardDark } from './src/ec-theme';
 
 import vercel from '@astrojs/vercel';
+// import pagefind from '@astrojs/pagefind';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://zemeriksdashboard.vercel.app',
-  output: 'server',
+  output: 'static',
   integrations: [
+    // pagefind(),
     expressiveCode({
       themes: [DashboardDark],
     }),
